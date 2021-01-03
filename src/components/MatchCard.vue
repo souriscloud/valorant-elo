@@ -8,12 +8,15 @@
         <span :class="getTitleClass(match)">{{ match.tierProgress }}</span><v-spacer></v-spacer><span class="final">{{ match.after + '/100' }}</span>
       </v-col>
       <v-col cols="5">
-        <p>{{ match.startTime }}</p>
-        <p>Mapa: {{ translateMap(match.map) }}</p>
+        <p>{{ translateTime(match.startTime) }}</p>
+        <p>Mapa: {{ match.map }}</p>
         <p>{{ match.before }} => <strong>{{ match.after }}</strong></p>
       </v-col>
       <v-col cols="2">
-        <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green darken-3' : 'red darken-4'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
+        <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green darken-3' : 'red darken-4'">
+          <v-icon>{{ match.promoted ? 'mdi-arrow-up-drop-circle-outline' : 'mdi-arrow-down-drop-circle-outline' }}</v-icon>
+          {{ match.promoted ? ' Rank Up' : ' Rank Down' }}
+        </v-chip>
         <template v-else>
           <v-chip outlined :color="match.isUp ? 'green darken-3' : 'red darken-4'">
             <v-icon v-for="(arrow, index) in getArrowArray(match.move)" :key="`arrow-${index}`">{{ arrow }}</v-icon>
@@ -37,14 +40,6 @@
 <script>
 import Rank from './Rank.vue'
 
-const maps = {
-  '/Game/Maps/Ascent/Ascent': 'Ascent',
-  '/Game/Maps/Bonsai/Bonsai': 'Split',
-  '/Game/Maps/Duality/Duality': 'Bind',
-  '/Game/Maps/Port/Port': 'Icebox',
-  '/Game/Maps/Triad/Triad': 'Haven'
-}
-
 export default {
   props: ['match'],
 
@@ -66,12 +61,9 @@ export default {
       return ''
     },
 
-    translateMap (map) {
-      if (maps[map]) {
-        return maps[map]
-      }
-
-      return map
+    translateTime (startTime) {
+      const startdate = new Date(startTime)
+      return new Intl.DateTimeFormat('cs', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(startdate)
     },
 
     getArrowArray (move) {
