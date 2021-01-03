@@ -1,24 +1,7 @@
-# valorant-elo
+# Valorant ELO Checker (EU Region ONLY)
 
-## Project setup
-```
-npm install
-```
+Based on Riot RSO auth flow, and official Riot API.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+It uses the same flow as game, so far not implemented in in-game UI. :-) Maybe one day :)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+I plan to release stream overlay static link browser-source for OBS, if there will be such interest.
