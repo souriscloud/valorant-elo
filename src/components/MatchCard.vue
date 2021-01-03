@@ -1,25 +1,35 @@
 <template>
   <v-card class="elevation-12">
-    <template v-if="match.ranked">
-      <v-card-title><span :class="getTitleClass(match)">{{ match.tierProgress }}</span><v-spacer></v-spacer><span class="final">{{ match.after + '/100' }}</span></v-card-title>
-      <v-card-text>
+    <v-row v-if="match.ranked" align="center">
+      <v-col cols="2">
+        <Rank :rankId="match.tier" />
+      </v-col>
+      <v-col cols="3">
+        <span :class="getTitleClass(match)">{{ match.tierProgress }}</span><v-spacer></v-spacer><span class="final">{{ match.after + '/100' }}</span>
+      </v-col>
+      <v-col cols="5">
         <p>{{ match.startTime }}</p>
         <p>Mapa: {{ translateMap(match.map) }}</p>
-        <Rank :rankId="match.tier" />
-        <p>Progress před: {{ match.before }}</p>
-        <p><strong>Progress po: {{ match.after }}</strong></p>
-      </v-card-text>
-      <v-card-actions>
+        <p>{{ match.before }} => <strong>{{ match.after }}</strong></p>
+      </v-col>
+      <v-col cols="2">
         <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
         <template v-else>
           <v-chip outlined :color="match.isUp ? 'green' : 'red'">
             <v-icon v-for="(arrow, index) in getArrowArray(match.move)" :key="`arrow-${index}`">{{ arrow }}</v-icon>
           </v-chip>
         </template>
-      </v-card-actions>
-    </template>
+      </v-col>
+    </v-row>
     <template v-else>
-      <v-card-title>UNRATED</v-card-title>
+      <v-row>
+        <v-col cols="2">
+          <Rank :rankId="0" />
+        </v-col>
+        <v-col cols="10">
+          <p>Unrated / Spike Rush / Custom / Deathmatch</p>
+        </v-col>
+      </v-row>
     </template>
   </v-card>
 </template>
@@ -98,14 +108,17 @@ export default {
 <style lang="scss" scoped>
 .plus {
   color: darkgreen;
+  font-size: 2.5em;
 }
 
 .minus {
   color: darkred;
+  font-size: 2.5em;
 }
 
 .final {
   color: darkslategray;
   font-style: italic;
+  font-size: 1.25em;
 }
 </style>

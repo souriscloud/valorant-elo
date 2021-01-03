@@ -10,22 +10,20 @@
             <h3>Aktuální rank:</h3>
             <Rank :rankId="lastRankId" />
           </v-col>
-          <v-col v-if="lastRankId < 24" cols="2">
+          <v-col v-if="lastRankId < 24 && lastRankId >= 3" cols="2">
             <h3>Další rank:</h3>
             <Rank :rankId="lastRankId + 1" />
           </v-col>
         </v-row>
-        <v-row v-if="lastRankId < 24">
+        <v-row v-if="lastRankId < 24 && lastRankId >= 3">
           <v-col cols="12">
             <h3>{{ lastProgress }} / 100</h3>
             <v-progress-linear :value="lastProgress" />
           </v-col>
         </v-row>
-        <v-row>
-          <v-col v-for="match in matches" :key="match.id" style="margin-top: 15px;">
-            <MatchCard :match="match" />
-          </v-col>
-        </v-row>
+        <div v-for="match in matches" :key="match.id" style="margin-top: 20px;">
+          <MatchCard :match="match" />
+        </div>
       </template>
       <template v-else>
         <p>No competitive games in last 5 matches! Play competitive game to reveal your MMR.</p>
