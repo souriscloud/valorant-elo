@@ -4,16 +4,21 @@
       <v-progress-circular indeterminate color="primary" />
     </template>
     <template v-else>
-      <h3>Posledni progress: {{ lastProgress }}</h3>
+      <h3>Aktualni rank:</h3>
+      <Rank :rankId="lastRankId" />
+      <h3>Aktualni progress: {{ lastProgress }} / 100</h3>
+      <v-progress-linear :value="lastProgress" />
       <v-card v-for="match in matches" :key="match.id" style="margin-top: 15px;">
-        <v-card-title>{{ match.tierProgress }}</v-card-title>
+        <v-card-title :class="getTitleClass(match)">{{ match.tierProgress }}</v-card-title>
         <v-card-text>
-          <p>Mapa: {{ match.map }}</p>
           <p>Start: {{ match.startTime }}</p>
+          <p>Mapa: {{ match.map }}</p>
           <Rank :rankId="match.tier" />
           <p>Update: {{ match.move }}</p>
           <p>Postup nahoru: {{ match.isUp ? 'ano' : 'ne' }}</p>
           <p>Zmena ranku: {{ match.tierChanged ? 'ano' : 'ne' }}</p>
+          <p>Progress před: {{ match.before }}</p>
+          <p>Progress po: {{ match.after }}</p>
         </v-card-text>
         <v-card-actions>
           <!-- <v-btn>{{ match.isUp }}</v-btn> -->
@@ -32,12 +37,28 @@ export default {
     return {
       matches: [],
       lastProgress: 0,
+      lastRankId: 0,
       isWorking: true
     }
   },
 
   components: {
     Rank
+  },
+
+  methods: {
+    getTitleClass (m) {
+      switch (m.tierProgress[0]) {
+        case '+':
+          return 'plus'
+        case '-':
+          return 'minus'
+        default:
+          break
+      }
+
+      return ''
+    }
   },
 
   async mounted () {
@@ -48,22 +69,57 @@ export default {
     })
     this.isWorking = false
     this.lastProgress = response.data.Matches[0].TierProgressAfterUpdate
+    this.lastRankId = response.data.Matches[0].TierAfterUpdate
     this.matches = response.data.Matches.map(match => {
-      const progressChangeUp = match.TierProgressAfterUpdate > match.TierProgressBeforeUpdate
-      const progressChangeNum = progressChangeUp ? match.TierProgressAfterUpdate - match.TierProgressBeforeUpdate : match.TierProgressBeforeUpdate - match.TierProgressAfterUpdate
       const move = match.CompetitiveMovement
-      return {
+      const promoted = move === 'PROMOTED'
+      const demoted = move === 'DEMOTED'
+      const rankChanged = promoted || demoted
+      const m = {
         id: match.MatchID,
         map: match.MapID,
         startTime: new Date(match.MatchStartTime),
-        tierChanged: match.TierAfterUpdate !== match.TierBeforeUpdate,
-        isUp: progressChangeUp,
-        tierProgress: `${progressChangeUp ? '+' : '-'} ${progressChangeNum}`,
+        move,
+        promoted,
+        demoted,
+        rankChanged,
         tier: match.TierAfterUpdate,
-        move
+        before: match.TierProgressBeforeUpdate,
+        after: match.TierProgressAfterUpdate
       }
+
+      if (rankChanged) {
+        if (promoted) {
+          const gain = 100 - match.TierProgressBeforeUpdate + match.TierProgressAfterUpdate
+          m.tierProgress = `+ ${gain}`
+        }
+
+        if (demoted) {
+          const gain = 100 - match.TierProgressAfterUpdate + match.TierProgressBeforeUpdate
+          m.tierProgress = `- ${gain}`
+        }
+
+        m.isUp = m.promoted
+      } else {
+        const progressChangeUp = match.TierProgressAfterUpdate > match.TierProgressBeforeUpdate
+        const progressChangeNum = progressChangeUp ? match.TierProgressAfterUpdate - match.TierProgressBeforeUpdate : match.TierProgressBeforeUpdate - match.TierProgressAfterUpdate
+        m.tierProgress = `${progressChangeUp ? '+' : '-'} ${progressChangeNum}`
+        m.isUp = progressChangeUp
+      }
+
+      return m
     })
     console.log(this.matches)
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.plus {
+  color: darkgreen;
+}
+
+.minus {
+  color: darkred;
+}
+</style>
