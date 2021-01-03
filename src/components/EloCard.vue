@@ -67,6 +67,7 @@ export default {
       type: 'compet',
       accessToken: this.$route.params.accessToken
     })
+    this.$store.dispatch('updateUserInfo', response.data.userInfo)
     this.isWorking = false
     this.lastProgress = response.data.matches[0].TierProgressAfterUpdate
     this.lastRankId = response.data.matches[0].TierAfterUpdate
