@@ -1,21 +1,26 @@
 <template>
   <v-card class="elevation-12">
-    <v-card-title><span :class="getTitleClass(match)">{{ match.tierProgress }}</span><v-spacer></v-spacer><span class="final">{{ match.after + '/100' }}</span></v-card-title>
-    <v-card-text>
-      <p>{{ match.startTime }}</p>
-      <p>Mapa: {{ translateMap(match.map) }}</p>
-      <Rank :rankId="match.tier" />
-      <p>Progress před: {{ match.before }}</p>
-      <p><strong>Progress po: {{ match.after }}</strong></p>
-    </v-card-text>
-    <v-card-actions>
-      <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
-      <template v-else>
-        <v-chip outlined :color="match.isUp ? 'green' : 'red'">
-          <v-icon v-for="(arrow, index) in getArrowArray(match.move)" :key="`arrow-${index}`">{{ arrow }}</v-icon>
-        </v-chip>
-      </template>
-    </v-card-actions>
+    <template v-if="match.ranked">
+      <v-card-title><span :class="getTitleClass(match)">{{ match.tierProgress }}</span><v-spacer></v-spacer><span class="final">{{ match.after + '/100' }}</span></v-card-title>
+      <v-card-text>
+        <p>{{ match.startTime }}</p>
+        <p>Mapa: {{ translateMap(match.map) }}</p>
+        <Rank :rankId="match.tier" />
+        <p>Progress před: {{ match.before }}</p>
+        <p><strong>Progress po: {{ match.after }}</strong></p>
+      </v-card-text>
+      <v-card-actions>
+        <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
+        <template v-else>
+          <v-chip outlined :color="match.isUp ? 'green' : 'red'">
+            <v-icon v-for="(arrow, index) in getArrowArray(match.move)" :key="`arrow-${index}`">{{ arrow }}</v-icon>
+          </v-chip>
+        </template>
+      </v-card-actions>
+    </template>
+    <template v-else>
+      <v-card-title>UNRATED</v-card-title>
+    </template>
   </v-card>
 </template>
 
