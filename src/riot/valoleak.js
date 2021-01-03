@@ -10,7 +10,8 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
 const riotClient = axios.create({
   withCredentials: true,
   headers: {
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS'
   }
 })
 

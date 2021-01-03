@@ -12,7 +12,7 @@
 
 <script>
 import RiotLogin from '@/components/RiotLogin.vue'
-import { leakToken } from '../riot/valoleak'
+import axios from 'axios'
 
 export default {
   name: 'Home',
@@ -28,8 +28,18 @@ export default {
     }
   },
   methods: {
-    login () {
-      console.log(leakToken(this.credentials.username, this.credentials.password))
+    async login () {
+      const response = await axios.post('http://valoments.souris.cloud:3986/valoleak', {
+        type: 'riotauth',
+        username: this.credentials.username,
+        password: this.credentials.password
+      })
+
+      if (response.data && response.data.accessToken) {
+        this.$router.push(`/elo/${response.data.accessToken}`)
+      }
+
+      console.log(response.data)
     }
   }
 }

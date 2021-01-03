@@ -6,7 +6,7 @@
           <v-col cols="!2" sm="8" md="4">
             <v-card class="elevation-12">
               <v-toolbar color="primary" dark flat>
-                <v-toolbar-title>Valorant ELO</v-toolbar-title>
+                <v-toolbar-title>Valorant ELO (EU Region only)</v-toolbar-title>
               </v-toolbar>
               <router-view />
             </v-card>
