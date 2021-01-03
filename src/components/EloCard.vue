@@ -9,12 +9,12 @@
           <h3>Aktuální rank:</h3>
           <Rank :rankId="lastRankId" />
         </v-col>
-        <v-col cols="2">
+        <v-col v-if="lastRankId < 24" cols="2">
           <h3>Další rank:</h3>
           <Rank :rankId="lastRankId + 1" />
         </v-col>
       </v-row>
-      <v-row>
+      <v-row v-if="lastRankId < 24">
         <v-col cols="12">
           <h3>{{ lastProgress }} / 100</h3>
           <v-progress-linear :value="lastProgress" />
