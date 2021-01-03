@@ -13,9 +13,9 @@
         <p>{{ match.before }} => <strong>{{ match.after }}</strong></p>
       </v-col>
       <v-col cols="2">
-        <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
+        <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green darken-3' : 'red darken-4'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
         <template v-else>
-          <v-chip outlined :color="match.isUp ? 'green' : 'red'">
+          <v-chip outlined :color="match.isUp ? 'green darken-3' : 'red darken-4'">
             <v-icon v-for="(arrow, index) in getArrowArray(match.move)" :key="`arrow-${index}`">{{ arrow }}</v-icon>
           </v-chip>
         </template>
@@ -107,12 +107,12 @@ export default {
 
 <style lang="scss" scoped>
 .plus {
-  color: darkgreen;
+  color: #2E7D32;
   font-size: 2.5em;
 }
 
 .minus {
-  color: darkred;
+  color: #B71C1C;
   font-size: 2.5em;
 }
 
