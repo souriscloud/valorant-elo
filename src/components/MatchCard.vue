@@ -8,9 +8,30 @@
         <span :class="getTitleClass(match)">{{ match.tierProgress }}</span><v-spacer></v-spacer><span class="final">{{ match.after + '/100' }}</span>
       </v-col>
       <v-col cols="5">
-        <p>{{ translateTime(match.startTime) }}</p>
-        <p>Mapa: {{ match.map }}</p>
-        <p>{{ match.before }} => <strong>{{ match.after }}</strong></p>
+        <v-row>
+          <v-col>
+            {{ translateTime(match.startTime) }}
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            Mapa: {{ match.map }}
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            MMR:
+          </v-col>
+          <v-col>
+            <i>{{ match.before }}</i>
+          </v-col>
+          <v-col>
+            <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+          </v-col>
+          <v-col>
+            <strong class="final">{{ match.after }}</strong>
+          </v-col>
+        </v-row>
       </v-col>
       <v-col cols="2">
         <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green darken-3' : 'red darken-4'">
