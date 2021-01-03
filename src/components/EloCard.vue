@@ -21,7 +21,7 @@
           <p>Progress po: {{ match.after }}</p>
         </v-card-text>
         <v-card-actions>
-          <v-chip v-if="match.rankChanged" :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
+          <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
         </v-card-actions>
       </v-card>
     </template>
