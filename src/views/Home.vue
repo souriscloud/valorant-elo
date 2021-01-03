@@ -11,7 +11,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="login">Get ELO</v-btn>
+      <v-btn color="blue-grey darken-4" dark @click="login">Last 5 Matches</v-btn>
     </v-card-actions>
   </div>
 </template>
@@ -44,8 +44,6 @@ export default {
       if (response.data && response.data.accessToken) {
         this.$router.push(`/elo/${response.data.accessToken}`)
       }
-
-      console.log(response.data)
     }
   }
 }

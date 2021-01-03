@@ -4,28 +4,25 @@
       <v-progress-circular indeterminate color="primary" />
     </template>
     <template v-else>
-      <h3>Aktuální rank:</h3>
-      <Rank :rankId="lastRankId" />
-      <h3>Aktuální progress: {{ lastProgress }} / 100</h3>
-      <v-progress-linear :value="lastProgress" />
+      <v-row>
+        <v-col cols="10">
+          <h3>Aktuální rank:</h3>
+          <Rank :rankId="lastRankId" />
+        </v-col>
+        <v-col cols="2">
+          <h3>Další rank:</h3>
+          <Rank :rankId="lastRankId + 1" />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12">
+          <h3>{{ lastProgress }} / 100</h3>
+          <v-progress-linear :value="lastProgress" />
+        </v-col>
+      </v-row>
       <v-row>
         <v-col v-for="match in matches" :key="match.id" style="margin-top: 15px;">
-          <v-card>
-            <v-card-title :class="getTitleClass(match)">{{ match.tierProgress }}</v-card-title>
-            <v-card-text>
-              <p>{{ match.startTime }}</p>
-              <p>Mapa: {{ match.map }}</p>
-              <Rank :rankId="match.tier" />
-              <p>Pohyb (šipky): {{ match.move }}</p>
-              <p>Postup nahoru: {{ match.isUp ? 'ano' : 'ne' }}</p>
-              <p>Změna ranku: {{ match.tierChanged ? 'ano' : 'ne' }}</p>
-              <p>Progress před: {{ match.before }}</p>
-              <p>Progress po: {{ match.after }}</p>
-            </v-card-text>
-            <v-card-actions>
-              <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
-            </v-card-actions>
-          </v-card>
+          <MatchCard :match="match" />
         </v-col>
       </v-row>
     </template>
@@ -35,6 +32,7 @@
 <script>
 import axios from 'axios'
 import Rank from './Rank.vue'
+import MatchCard from './MatchCard.vue'
 
 export default {
   data () {
@@ -47,29 +45,16 @@ export default {
   },
 
   components: {
-    Rank
-  },
-
-  methods: {
-    getTitleClass (m) {
-      switch (m.tierProgress[0]) {
-        case '+':
-          return 'plus'
-        case '-':
-          return 'minus'
-        default:
-          break
-      }
-
-      return ''
-    }
+    Rank,
+    MatchCard
   },
 
   async mounted () {
     this.isWorking = true
     const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
       type: 'compet',
-      accessToken: this.$route.params.accessToken
+      accessToken: this.$route.params.accessToken,
+      count: 5
     })
     this.$store.dispatch('updateUserInfo', response.data.userInfo)
     this.isWorking = false
@@ -116,17 +101,6 @@ export default {
 
       return m
     })
-    console.log(this.matches)
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.plus {
-  color: darkgreen;
-}
-
-.minus {
-  color: darkred;
-}
-</style>
