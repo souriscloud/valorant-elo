@@ -42,7 +42,7 @@ export default {
 
   async mounted () {
     this.isWorking = true
-    const response = await axios.post('http://valoments.souris.cloud:3986/valoleak', {
+    const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
       type: 'compet',
       accessToken: this.$route.params.accessToken
     })

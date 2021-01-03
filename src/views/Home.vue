@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     async login () {
-      const response = await axios.post('http://valoments.souris.cloud:3986/valoleak', {
+      const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
         type: 'riotauth',
         username: this.credentials.username,
         password: this.credentials.password
