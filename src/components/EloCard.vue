@@ -4,24 +4,24 @@
       <v-progress-circular indeterminate color="primary" />
     </template>
     <template v-else>
-      <h3>Aktualni rank:</h3>
+      <h3>Aktuální rank:</h3>
       <Rank :rankId="lastRankId" />
-      <h3>Aktualni progress: {{ lastProgress }} / 100</h3>
+      <h3>Aktuální progress: {{ lastProgress }} / 100</h3>
       <v-progress-linear :value="lastProgress" />
       <v-card v-for="match in matches" :key="match.id" style="margin-top: 15px;">
         <v-card-title :class="getTitleClass(match)">{{ match.tierProgress }}</v-card-title>
         <v-card-text>
-          <p>Start: {{ match.startTime }}</p>
+          <p>{{ match.startTime }}</p>
           <p>Mapa: {{ match.map }}</p>
           <Rank :rankId="match.tier" />
-          <p>Update: {{ match.move }}</p>
+          <p>Pohyb (šipky): {{ match.move }}</p>
           <p>Postup nahoru: {{ match.isUp ? 'ano' : 'ne' }}</p>
-          <p>Zmena ranku: {{ match.tierChanged ? 'ano' : 'ne' }}</p>
+          <p>Změna ranku: {{ match.tierChanged ? 'ano' : 'ne' }}</p>
           <p>Progress před: {{ match.before }}</p>
           <p>Progress po: {{ match.after }}</p>
         </v-card-text>
         <v-card-actions>
-          <!-- <v-btn>{{ match.isUp }}</v-btn> -->
+          <v-chip v-if="match.rankChanged" :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
         </v-card-actions>
       </v-card>
     </template>
@@ -75,10 +75,12 @@ export default {
       const promoted = move === 'PROMOTED'
       const demoted = move === 'DEMOTED'
       const rankChanged = promoted || demoted
+      const startdate = new Date(match.MatchStartTime)
+      const intldate = new Intl.DateTimeFormat('cs', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(startdate)
       const m = {
         id: match.MatchID,
         map: match.MapID,
-        startTime: new Date(match.MatchStartTime),
+        startTime: intldate,
         move,
         promoted,
         demoted,
