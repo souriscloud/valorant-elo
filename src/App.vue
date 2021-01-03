@@ -21,10 +21,14 @@
 export default {
   name: 'App',
 
-  data () {
-    return {
-      title: this.$store.state.userInfo === null ? 'Valorant ELO (EU Region only)' : `${this.$store.state.userInfo.GameName}#${this.$store.state.userInfo.TagLine}`
+  computed: {
+    title () {
+      return this.$store.state.userInfo === null ? 'Valorant ELO (EU Region only)' : `${this.$store.state.userInfo.GameName}#${this.$store.state.userInfo.TagLine}`
     }
+  },
+
+  data () {
+    return {}
   }
 }
 </script>
