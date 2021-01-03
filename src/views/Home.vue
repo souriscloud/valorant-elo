@@ -1,18 +1,36 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <v-card-text>
+      <RiotLogin v-model="credentials" />
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn color="primary" @click="login">Get ELO</v-btn>
+    </v-card-actions>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import RiotLogin from '@/components/RiotLogin.vue'
+import { leakToken } from '../riot/valoleak'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    RiotLogin
+  },
+  data () {
+    return {
+      credentials: {
+        username: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    login () {
+      console.log(leakToken(this.credentials.username, this.credentials.password))
+    }
   }
 }
 </script>
