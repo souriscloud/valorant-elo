@@ -23,7 +23,7 @@ export default {
 
   computed: {
     title () {
-      return this.$store.state.userInfo === null ? 'Valorant ELO (EU Region only)' : `${this.$store.state.userInfo.GameName}#${this.$store.state.userInfo.TagLine}`
+      return this.$store.state.userInfo === null ? 'Valorant ELO (EU Region only)' : this.$store.state.userInfo.displayName
     }
   },
 

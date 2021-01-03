@@ -62,60 +62,11 @@ export default {
     })
     this.$store.dispatch('updateUserInfo', response.data.userInfo)
     this.isWorking = false
-    let found = false
-    for (const m of response.data.matches) {
-      if (!m.CompetitiveMovement.includes('UNKNOWN')) {
-        this.lastProgress = m.TierProgressAfterUpdate
-        this.lastRankId = m.TierAfterUpdate
-        found = true
-        break
-      }
-    }
-    if (!found) {
-      this.noRanked = true
-    }
-    this.matches = response.data.matches.map(match => {
-      const move = match.CompetitiveMovement
-      const promoted = move === 'PROMOTED'
-      const demoted = move === 'DEMOTED'
-      const rankChanged = promoted || demoted
-      const startdate = new Date(match.MatchStartTime)
-      const intldate = new Intl.DateTimeFormat('cs', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(startdate)
-      const m = {
-        id: match.MatchID,
-        map: match.MapID,
-        startTime: intldate,
-        move,
-        promoted,
-        demoted,
-        rankChanged,
-        tier: match.TierAfterUpdate,
-        before: match.TierProgressBeforeUpdate,
-        after: match.TierProgressAfterUpdate,
-        ranked: !move.includes('UNKNOWN')
-      }
 
-      if (rankChanged) {
-        if (promoted) {
-          const gain = 100 - match.TierProgressBeforeUpdate + match.TierProgressAfterUpdate
-          m.tierProgress = `+ ${gain}`
-        }
-
-        if (demoted) {
-          const gain = 100 - match.TierProgressAfterUpdate + match.TierProgressBeforeUpdate
-          m.tierProgress = `- ${gain}`
-        }
-
-        m.isUp = m.promoted
-      } else {
-        const progressChangeUp = match.TierProgressAfterUpdate > match.TierProgressBeforeUpdate
-        const progressChangeNum = progressChangeUp ? match.TierProgressAfterUpdate - match.TierProgressBeforeUpdate : match.TierProgressBeforeUpdate - match.TierProgressAfterUpdate
-        m.tierProgress = `${progressChangeUp ? '+' : '-'} ${progressChangeNum}`
-        m.isUp = progressChangeUp
-      }
-
-      return m
-    })
+    this.lastProgress = response.data.lastMatch.TierProgressAfterUpdate
+    this.lastRankId = response.data.lastMatch.TierAfterUpdate
+    this.noRanked = response.data.noRanked
+    this.matches = response.data.matches
   }
 }
 </script>
