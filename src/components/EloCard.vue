@@ -68,9 +68,9 @@ export default {
       accessToken: this.$route.params.accessToken
     })
     this.isWorking = false
-    this.lastProgress = response.data.Matches[0].TierProgressAfterUpdate
-    this.lastRankId = response.data.Matches[0].TierAfterUpdate
-    this.matches = response.data.Matches.map(match => {
+    this.lastProgress = response.data.matches[0].TierProgressAfterUpdate
+    this.lastRankId = response.data.matches[0].TierAfterUpdate
+    this.matches = response.data.matches.map(match => {
       const move = match.CompetitiveMovement
       const promoted = move === 'PROMOTED'
       const demoted = move === 'DEMOTED'
