@@ -8,22 +8,26 @@
       <Rank :rankId="lastRankId" />
       <h3>Aktuální progress: {{ lastProgress }} / 100</h3>
       <v-progress-linear :value="lastProgress" />
-      <v-card v-for="match in matches" :key="match.id" style="margin-top: 15px;">
-        <v-card-title :class="getTitleClass(match)">{{ match.tierProgress }}</v-card-title>
-        <v-card-text>
-          <p>{{ match.startTime }}</p>
-          <p>Mapa: {{ match.map }}</p>
-          <Rank :rankId="match.tier" />
-          <p>Pohyb (šipky): {{ match.move }}</p>
-          <p>Postup nahoru: {{ match.isUp ? 'ano' : 'ne' }}</p>
-          <p>Změna ranku: {{ match.tierChanged ? 'ano' : 'ne' }}</p>
-          <p>Progress před: {{ match.before }}</p>
-          <p>Progress po: {{ match.after }}</p>
-        </v-card-text>
-        <v-card-actions>
-          <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
-        </v-card-actions>
-      </v-card>
+      <v-row>
+        <v-col v-for="match in matches" :key="match.id" style="margin-top: 15px;">
+          <v-card>
+            <v-card-title :class="getTitleClass(match)">{{ match.tierProgress }}</v-card-title>
+            <v-card-text>
+              <p>{{ match.startTime }}</p>
+              <p>Mapa: {{ match.map }}</p>
+              <Rank :rankId="match.tier" />
+              <p>Pohyb (šipky): {{ match.move }}</p>
+              <p>Postup nahoru: {{ match.isUp ? 'ano' : 'ne' }}</p>
+              <p>Změna ranku: {{ match.tierChanged ? 'ano' : 'ne' }}</p>
+              <p>Progress před: {{ match.before }}</p>
+              <p>Progress po: {{ match.after }}</p>
+            </v-card-text>
+            <v-card-actions>
+              <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green' : 'red'">{{ match.promoted ? 'Rank Up' : 'Rank Down' }}</v-chip>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
     </template>
   </v-card-text>
 </template>
