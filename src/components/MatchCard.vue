@@ -4,18 +4,16 @@
       <v-col cols="2">
         <Rank :rankId="match.tier" />
       </v-col>
-      <v-col cols="3">
+      <v-col cols="2">
         <span :class="getTitleClass(match)">{{ match.tierProgress }}</span><v-spacer></v-spacer><span class="final">{{ match.after + '/100' }}</span>
       </v-col>
-      <v-col cols="5">
+      <v-col cols="3">
+        <Map :matchMap="match.map" />
+      </v-col>
+      <v-col cols="3">
         <v-row>
           <v-col>
             {{ translateTime(match.startTime) }}
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            Mapa: {{ match.map }}
           </v-col>
         </v-row>
         <v-row>
@@ -60,12 +58,14 @@
 
 <script>
 import Rank from './Rank.vue'
+import Map from './Map.vue'
 
 export default {
   props: ['match'],
 
   components: {
-    Rank
+    Rank,
+    Map
   },
 
   methods: {

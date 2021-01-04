@@ -43,7 +43,7 @@ export default {
   },
 
   mounted () {
-    if (this.isLoading === false && this.loaded === false) {
+    if (this.isLoading === null && this.loaded === false) {
       this.$router.push('/')
     }
   }
