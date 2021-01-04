@@ -1,7 +1,7 @@
 <template>
   <v-tooltip top  >
     <template v-slot:activator="{ on, attrs }">
-      <v-img width="180" height="100" :src="mapPath" v-on="on" v-bind="attrs" />
+      <v-img width="150" height="70" :src="mapPath" v-on="on" v-bind="attrs" />
     </template>
     <span>{{ mapName }}</span>
   </v-tooltip>

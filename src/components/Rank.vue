@@ -2,7 +2,7 @@
   <div style="margin: 10px 0;">
     <v-tooltip right>
       <template v-slot:activator="{ on, attrs }">
-        <v-img width="100" height="100" :src="iconPath" v-on="on" v-bind="attrs" />
+        <v-img width="60" height="60" :src="iconPath" v-on="on" v-bind="attrs" />
       </template>
       <span>{{ rankName }}</span>
     </v-tooltip>

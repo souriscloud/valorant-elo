@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-text>
-    <p>Your account informations stays secure! Do not show ongoing page link to anyone to stay secure! (Ongoing page link: You can save it, and dont input your credentials again everytime, it contains your RiotAPI access token, it could be abused, but only if it will leak, so it's up to you how you use this site in secure). If your saved link doesn't work anymore, just input your credentials again and save new link.</p>
+    <p>Your account informations stays secure! Application has been updated to dont reveal your access token in link, so its now safe to make a screenshot or whatever.</p>
     <p>Service used to fetch informations about your account from Riot API is just used as proxy service and doesn't store your account information at all!</p>
     <p>Sources (proof of security): <ul>
       <li><a href="https://github.com/souriscloud/valorant-elo">this page (github source)</a></li>
