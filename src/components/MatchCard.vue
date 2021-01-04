@@ -26,7 +26,7 @@
             <i>{{ match.before }}</i>
           </v-col>
           <v-col>
-            <v-icon>mdi-arrow-right-bold-hexagon-outline</v-icon>
+            <v-icon :class="getTitleClass(match)">mdi-arrow-right-bold-hexagon-outline</v-icon>
           </v-col>
           <v-col>
             <strong class="final">{{ match.after }}</strong>

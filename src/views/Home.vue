@@ -18,7 +18,6 @@
 
 <script>
 import RiotLogin from '@/components/RiotLogin.vue'
-import axios from 'axios'
 
 export default {
   name: 'Home',
@@ -35,15 +34,8 @@ export default {
   },
   methods: {
     async login () {
-      const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
-        type: 'riotauth',
-        username: this.credentials.username,
-        password: this.credentials.password
-      })
-
-      if (response.data && response.data.accessToken) {
-        this.$router.push(`/elo/${response.data.accessToken}`)
-      }
+      await this.$store.dispatch('fetchData', this.credentials)
+      this.$router.push('/elo')
     }
   }
 }
