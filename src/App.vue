@@ -7,19 +7,31 @@
             <v-card class="elevation-12">
               <v-toolbar color="blue-grey darken-4" dark flat>
                 <v-row justify="center" align="center">
-                  <v-col cols="10">
+                  <v-col cols="9">
                     <v-toolbar-title>{{ title }}</v-toolbar-title>
                   </v-col>
-                  <v-col v-if="loaded" cols="2">
-                    <v-tooltip bottom>
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-btn v-on="on" v-bind="attrs" @click="screenshot">
-                          <v-icon>mdi-file-image</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>Screenshot</span>
-                    </v-tooltip>
-                  </v-col>
+                  <template v-if="loaded">
+                    <v-col cols="1">
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn v-on="on" v-bind="attrs" @click="screenshot">
+                            <v-icon>mdi-file-image</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>Screenshot</span>
+                      </v-tooltip>
+                    </v-col>
+                    <v-col cols="1">
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn v-on="on" v-bind="attrs" @click="reload">
+                            <v-icon>mdi-refresh-circle</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>Refresh</span>
+                      </v-tooltip>
+                    </v-col>
+                  </template>
                 </v-row>
               </v-toolbar>
               <router-view />
@@ -59,6 +71,13 @@ export default {
         downloadLink.click()
         downloadLink.remove()
       })
+    },
+
+    async reload () {
+      await this.$store.dispatch('fetchData')
+      if (this.$store.state.isError) {
+        this.$router.push('/')
+      }
     }
   }
 }

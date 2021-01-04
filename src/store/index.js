@@ -12,7 +12,8 @@ export default new Vuex.Store({
     noRanked: null,
     isLoading: null,
     isError: false,
-    loaded: false
+    loaded: false,
+    accessToken: null
   },
   mutations: {
     setUserInfo (state, userInfo = null) {
@@ -21,6 +22,10 @@ export default new Vuex.Store({
 
     setIsLoading (state, isLoading = true) {
       state.isLoading = isLoading
+    },
+
+    setAccessToken (state, accessToken = null) {
+      state.accessToken = accessToken
     },
 
     consumeResponse (state, response) {
@@ -56,19 +61,30 @@ export default new Vuex.Store({
       commit('setUserInfo', payload)
     },
 
-    async fetchData ({ commit }, payload) {
+    async fetchData ({ commit, rootState }, payload) {
       commit('setIsLoading')
 
-      const authResponse = await axios.post('https://api.valoments.souris.cloud/valoleak', {
-        type: 'riotauth',
-        username: payload.username,
-        password: payload.password
-      })
+      if (!rootState.accessToken) {
+        const authResponse = await axios.post('https://api.valoments.souris.cloud/valoleak', {
+          type: 'riotauth',
+          username: payload.username,
+          password: payload.password
+        })
 
-      if (authResponse.data && authResponse.data.accessToken) {
+        if (authResponse.data && authResponse.data.accessToken) {
+          commit('setAccessToken', authResponse.data.accessToken)
+          const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
+            type: 'compet',
+            accessToken: authResponse.data.accessToken,
+            count: 5
+          })
+
+          commit('consumeResponse', response.data)
+        }
+      } else {
         const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
           type: 'compet',
-          accessToken: authResponse.data.accessToken,
+          accessToken: rootState.accessToken,
           count: 5
         })
 
