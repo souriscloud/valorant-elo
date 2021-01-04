@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 10px 0;">
+  <div style="margin: 10px 10px;">
     <v-tooltip right>
       <template v-slot:activator="{ on, attrs }">
         <v-img width="60" height="60" :src="iconPath" v-on="on" v-bind="attrs" />
