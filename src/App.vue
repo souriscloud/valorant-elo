@@ -1,11 +1,11 @@
 <template>
-  <v-app>
+  <v-app class="valoapp">
     <v-main>
       <v-container class="fill-height" fluid ref="valorantEloContainer">
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="6">
-            <v-card class="elevation-12">
-              <v-toolbar color="blue-grey darken-4" dark flat>
+            <v-card class="elevation-12" color="rgba(0, 0, 0, 0.5)">
+              <v-toolbar color="rgba(0, 0, 0, 0.5)" dark flat>
                 <v-row justify="center" align="center">
                   <v-col cols="9">
                     <v-toolbar-title>{{ title }}</v-toolbar-title>
@@ -82,3 +82,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.valoapp {
+  background-image: url('/valorant-elo-bg.png') !important;
+  background-position: center !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+}
+</style>

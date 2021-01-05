@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-12">
+  <v-card class="elevation-12" color="rgba(0, 0, 0, 0.8)">
     <v-row v-if="match.ranked" align="center">
       <v-col cols="2">
         <Rank :rankId="match.tier" />
@@ -31,7 +31,7 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="2" style="text-align: center;">
         <v-chip v-if="match.rankChanged" outlined :color="match.promoted ? 'green darken-3' : 'red darken-4'">
           <v-icon>{{ match.promoted ? 'mdi-arrow-up-drop-circle-outline' : 'mdi-arrow-down-drop-circle-outline' }}</v-icon>
           {{ match.promoted ? ' Rank Up' : ' Rank Down' }}
@@ -43,16 +43,14 @@
         </template>
       </v-col>
     </v-row>
-    <template v-else>
-      <v-row>
-        <v-col cols="2">
-          <Rank :rankId="0" />
-        </v-col>
-        <v-col cols="10">
-          <p>Unrated / Spike Rush / Custom / Deathmatch</p>
-        </v-col>
-      </v-row>
-    </template>
+    <v-row v-else>
+      <v-col cols="3">
+        <Rank :rankId="0" />
+      </v-col>
+      <v-col cols="9">
+        <v-card-text>Unrated / Spike Rush / Custom / Deathmatch</v-card-text>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
