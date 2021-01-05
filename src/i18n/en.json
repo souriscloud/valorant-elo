@@ -1,0 +1,26 @@
+{
+  "title": "Valorant ELO (EU Region only)",
+  "home": {
+    "p1": "Your account informations stays secure! Application has been updated to dont reveal your access token in link.",
+    "p2": "Service used to fetch informations about your account from Riot API is just used as proxy service and doesn't store your account information at all!",
+    "p3": "This application has nothing to do with Riot itself, it just using public shared code to replicate Riot RSO to get your MMR updates.",
+    "sources": "Sources (proof of security)",
+    "source_this": "this page (github source)",
+    "source_api": "/valoleak endpoint of api.valoments.souris.cloud (service source code)",
+    "button": "Last 5 matches"
+  },
+  "language": "Switch Language",
+  "login": {
+    "username": "Username",
+    "password": "Password"
+  },
+  "elo": {
+    "rank_actual": "Actual rank",
+    "rank_next": "Next rank",
+    "no_ranked": "No competitive games in last 5 matches! Play competitive game to reveal your MMR." 
+  },
+  "go_home": "Home",
+  "screenshot": "Save as PNG",
+  "reload": "Reload (available only an hour from login time)",
+  "last_update": "Last application update"
+}

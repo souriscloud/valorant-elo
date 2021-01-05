@@ -13,7 +13,7 @@
       <v-col cols="3">
         <v-row>
           <v-col>
-            {{ translateTime(match.startTime) }}
+            {{ localizedTime }}
           </v-col>
         </v-row>
         <v-row>
@@ -66,6 +66,12 @@ export default {
     Map
   },
 
+  computed: {
+    localizedTime () {
+      return this.translateTime(this.match.startTime, this.$i18n.locale)
+    }
+  },
+
   methods: {
     getTitleClass (m) {
       switch (m.tierProgress[0]) {
@@ -80,9 +86,9 @@ export default {
       return ''
     },
 
-    translateTime (startTime) {
+    translateTime (startTime, lang = 'cs') {
       const startdate = new Date(startTime)
-      return new Intl.DateTimeFormat('cs', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(startdate)
+      return new Intl.DateTimeFormat(lang, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(startdate)
     },
 
     getArrowArray (move) {

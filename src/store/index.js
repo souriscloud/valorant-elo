@@ -13,9 +13,21 @@ export default new Vuex.Store({
     isLoading: null,
     isError: false,
     loaded: false,
-    accessToken: null
+    accessToken: null,
+    lastCommit: null
   },
   mutations: {
+    clearData (state) {
+      state.userInfo = null
+      state.matches = []
+      state.lastMatch = null
+      state.noRanked = null
+      state.isLoading = null
+      state.isError = false
+      state.loaded = false
+      state.accessToken = null
+    },
+
     setUserInfo (state, userInfo = null) {
       state.userInfo = userInfo
     },
@@ -54,6 +66,10 @@ export default new Vuex.Store({
 
     setMatches (state, matches = []) {
       state.matches = matches
+    },
+
+    setLastCommitData (state, lastCommit = null) {
+      state.lastCommit = lastCommit
     }
   },
   actions: {
@@ -92,6 +108,19 @@ export default new Vuex.Store({
       }
 
       commit('setIsLoading', false)
+    },
+
+    clear ({ commit }) {
+      commit('clearData')
+    },
+
+    async fetchLastCommit ({ commit }) {
+      console.log('fetchi last comm')
+      const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
+        type: 'git-elo'
+      })
+
+      commit('setLastCommitData', response.data)
     }
   },
   modules: {

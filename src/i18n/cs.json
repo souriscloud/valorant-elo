@@ -1,0 +1,26 @@
+{
+  "title": "Valorant ELO (pouze pro EU region)",
+  "home": {
+    "p1": "Aplikace je naprosto bezpečná, a nyní již adresní řádek prohlížeče neobsahuje citlivé údaje.",
+    "p2": "Služba, kterou tato aplikace využívá k vytěžení vašich dat z Riot serverů vaše heslo jen předává dál a nikde s ním nepracuje nebo ho neukládá.",
+    "p3": "Aplikace není provozována Riotem a nemá s ním nic společného! Používá pouze veřejně dostupný zdrojový kód k replikaci Riot RSO (přihlášení k Riot službám).",
+    "sources": "Zdrojové soubory (důkaz bezpečnosti)",
+    "source_this": "tato aplikace (github zdroj)",
+    "source_api": "/valoleak endpoint na api.valoments.souris.cloud (zdrojový kód služby)",
+    "button": "Posledních 5 zápasů"
+  },
+  "language": "Přepnutí jazyka",
+  "login": {
+    "username": "Uživatelské jméno",
+    "password": "Heslo"
+  },
+  "elo": {
+    "rank_actual": "Aktuální rank",
+    "rank_next": "Další rank",
+    "no_ranked": "V posledních 5ti zápasech nemáš ani jeden kompetitivní! Musíš odehrát alespoň jeden kompetitivní zápas abys zde viděl své MMR." 
+  },
+  "go_home": "Zpět na přihlášení",
+  "screenshot": "Uložit jako PNG",
+  "reload": "Obnovit (funguje pouze hodinu po přihlášení)",
+  "last_update": "Poslední update aplikace"
+}

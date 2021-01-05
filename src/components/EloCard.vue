@@ -3,11 +3,11 @@
     <template v-if="!this.noRanked && this.loaded">
       <v-row>
         <v-col cols="10">
-          <h3>Aktuální rank:</h3>
+          <h3>{{ $t('elo.rank_actual') }}:</h3>
           <Rank :rankId="lastMatch.TierAfterUpdate" />
         </v-col>
         <v-col v-if="lastMatch.TierAfterUpdate < 24 && lastMatch.TierAfterUpdate >= 3" cols="2">
-          <h3>Další rank:</h3>
+          <h3>{{ $t('elo.rank_next') }}:</h3>
           <Rank :rankId="lastMatch.TierAfterUpdate + 1" />
         </v-col>
       </v-row>
@@ -22,7 +22,7 @@
       </div>
     </template>
     <template v-else>
-      <p>No competitive games in last 5 matches! Play competitive game to reveal your MMR.</p>
+      <p>{{ $t('elo.no_ranked') }}</p>
     </template>
   </v-card-text>
 </template>

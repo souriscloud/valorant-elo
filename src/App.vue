@@ -7,7 +7,17 @@
             <v-card class="elevation-12" color="rgba(0, 0, 0, 0.5)">
               <v-toolbar color="rgba(0, 0, 0, 0.5)" dark flat>
                 <v-row justify="center" align="center">
-                  <v-col cols="9">
+                  <v-col v-if="loaded" cols="1">
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn v-on="on" v-bind="attrs" @click="home">
+                          <v-icon>mdi-home-account</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>{{ $t('go_home') }}</span>
+                    </v-tooltip>
+                  </v-col>
+                  <v-col :cols="loaded ? 9 : 12">
                     <v-toolbar-title>{{ title }}</v-toolbar-title>
                   </v-col>
                   <template v-if="loaded">
@@ -18,7 +28,7 @@
                             <v-icon>mdi-file-image</v-icon>
                           </v-btn>
                         </template>
-                        <span>Screenshot</span>
+                        <span>{{ $t('screenshot') }}</span>
                       </v-tooltip>
                     </v-col>
                     <v-col cols="1">
@@ -28,7 +38,7 @@
                             <v-icon>mdi-refresh-circle</v-icon>
                           </v-btn>
                         </template>
-                        <span>Refresh</span>
+                        <span>{{ $t('reload') }}</span>
                       </v-tooltip>
                     </v-col>
                   </template>
@@ -51,7 +61,7 @@ export default {
 
   computed: {
     title () {
-      return this.$store.state.userInfo === null ? 'Valorant ELO (EU Region only)' : this.$store.state.userInfo.displayName
+      return this.$store.state.userInfo === null ? this.$t('title') : this.$store.state.userInfo.displayName
     },
     ...mapState(['loaded'])
   },
@@ -78,6 +88,11 @@ export default {
       if (this.$store.state.isError) {
         this.$router.push('/')
       }
+    },
+
+    home () {
+      this.$store.dispatch('clear')
+      this.$router.push('/')
     }
   }
 }

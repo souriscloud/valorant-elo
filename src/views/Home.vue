@@ -1,29 +1,49 @@
 <template>
   <div>
     <v-card-text>
-    <p>Your account informations stays secure! Application has been updated to dont reveal your access token in link, so its now safe to make a screenshot or whatever.</p>
-    <p>Service used to fetch informations about your account from Riot API is just used as proxy service and doesn't store your account information at all!</p>
-    <p>This application has nothing to do with Riot itself, it just using public shared code to replicate Riot RSO to get your MMR updates.</p>
-    <p>Sources (proof of security): <ul>
-      <li><a href="https://github.com/souriscloud/valorant-elo">this page (github source)</a></li>
-      <li><a href="https://github.com/souriscloud/valoments-backend/blob/master/src/services/valoleak/valoleak.class.js">/valoleak endpoint of api.valoments.souris.cloud (service source code)</a></li>
-      </ul></p>
+      <p>{{ $t('home.p1') }}</p>
+      <p>{{ $t('home.p2') }}</p>
+      <p>{{ $t('home.p3') }}</p>
+      <p>
+        {{ $t('home.sources') }}:
+        <ul>
+          <li><a href="https://github.com/souriscloud/valorant-elo">{{ $t('home.source_this') }}</a></li>
+          <li><a href="https://github.com/souriscloud/valoments-backend/blob/master/src/services/valoleak/valoleak.class.js">{{ $t('home.source_api') }}</a></li>
+        </ul>
+      </p>
       <RiotLogin v-model="credentials" />
     </v-card-text>
     <v-card-actions>
+      <p>{{ $t('last_update') }}: {{ lastCommitTime }}</p>
       <v-spacer></v-spacer>
-      <v-btn color="blue-grey darken-4" dark @click="login">Last 5 Matches</v-btn>
+      <LangSwitch />
+      <v-spacer></v-spacer>
+      <v-btn color="blue-grey darken-4" dark @click="login">{{ $t('home.button') }}</v-btn>
     </v-card-actions>
   </div>
 </template>
 
 <script>
 import RiotLogin from '@/components/RiotLogin.vue'
+import LangSwitch from '@/components/LangSwitch.vue'
 
 export default {
   name: 'Home',
   components: {
-    RiotLogin
+    RiotLogin,
+    LangSwitch
+  },
+  computed: {
+    lastCommitTime () {
+      const { lastCommit } = this.$store.state
+      if (lastCommit) {
+        const dt = new Date(lastCommit.author.date)
+
+        return new Intl.DateTimeFormat(this.$i18n.locale, { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(dt)
+      } else {
+        return '...'
+      }
+    }
   },
   data () {
     return {
