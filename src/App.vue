@@ -5,7 +5,7 @@
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="6">
             <v-card class="elevation-12" color="rgba(0, 0, 0, 0.5)">
-              <v-toolbar color="rgba(0, 0, 0, 0.5)" dark flat>
+              <v-toolbar v-if="title !== false" color="rgba(0, 0, 0, 0.5)" dark flat>
                 <v-row justify="center" align="center">
                   <v-col v-if="loaded" cols="1">
                     <v-tooltip bottom>
@@ -61,6 +61,10 @@ export default {
 
   computed: {
     title () {
+      if (this.$route.name === 'Shared') {
+        return false
+      }
+
       return this.$store.state.userInfo === null ? this.$t('title') : this.$store.state.userInfo.displayName
     },
     ...mapState(['loaded'])

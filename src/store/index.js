@@ -2,10 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 
+import { endpoint } from '@/apilink.json'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    userId: null,
     userInfo: null,
     matches: [],
     lastMatch: null,
@@ -18,6 +21,7 @@ export default new Vuex.Store({
   },
   mutations: {
     clearData (state) {
+      state.userId = null
       state.userInfo = null
       state.matches = []
       state.lastMatch = null
@@ -26,6 +30,10 @@ export default new Vuex.Store({
       state.isError = false
       state.loaded = false
       state.accessToken = null
+    },
+
+    setUserId (state, userId = null) {
+      state.userId = userId
     },
 
     setUserInfo (state, userInfo = null) {
@@ -57,9 +65,14 @@ export default new Vuex.Store({
         state.matches = response.matches
       }
 
-      if (state.noRanked === null && state.userInfo === null) {
+      if (response.userId !== undefined) {
+        state.userId = response.userId
+      }
+
+      if (state.noRanked === null && state.userInfo === null && state.userId === null) {
         state.isError = true
       } else {
+        state.isError = false
         state.loaded = true
       }
     },
@@ -81,7 +94,7 @@ export default new Vuex.Store({
       commit('setIsLoading')
 
       if (!rootState.accessToken) {
-        const authResponse = await axios.post('https://api.valoments.souris.cloud/valoleak', {
+        const authResponse = await axios.post(endpoint, {
           type: 'riotauth',
           username: payload.username,
           password: payload.password
@@ -89,7 +102,7 @@ export default new Vuex.Store({
 
         if (authResponse.data && authResponse.data.accessToken) {
           commit('setAccessToken', authResponse.data.accessToken)
-          const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
+          const response = await axios.post(endpoint, {
             type: 'compet',
             accessToken: authResponse.data.accessToken,
             count: 5
@@ -98,7 +111,7 @@ export default new Vuex.Store({
           commit('consumeResponse', response.data)
         }
       } else {
-        const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
+        const response = await axios.post(endpoint, {
           type: 'compet',
           accessToken: rootState.accessToken,
           count: 5
@@ -115,12 +128,31 @@ export default new Vuex.Store({
     },
 
     async fetchLastCommit ({ commit }) {
-      console.log('fetchi last comm')
-      const response = await axios.post('https://api.valoments.souris.cloud/valoleak', {
+      const response = await axios.post(endpoint, {
         type: 'git-elo'
       })
 
       commit('setLastCommitData', response.data)
+    },
+
+    async postCompetCard ({ rootState }) {
+      const { userId, userInfo, matches, noRanked, lastMatch } = rootState
+      const response = await axios.post(`${endpoint}-compet-cards`, {
+        userId,
+        userInfo,
+        matches,
+        noRanked,
+        lastMatch
+      })
+
+      if (response.data && response.data._id) {
+        return {
+          link: `${endpoint}-compet-cards/${response.data._id}`,
+          id: response.data._id
+        }
+      }
+
+      return null
     }
   },
   modules: {
