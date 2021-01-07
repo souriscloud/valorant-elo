@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-card-text>
+    <!-- <v-card-text>
       <p>Riot pomalu přechází na novou Auth Flow RSO, takže dokud mi nepošlou přístup (je to v jednání už několik měsíců, ale tenhle proces prostě trvá) k mému hlavnímu projektu, nebo pokud se na netu prozatím neobjeví obezlička jako doposud, tato aplikace už nepůjde. Nicméně můžete se těšit na trochu propracovanější projekt, a tato aplikace v něm bude stoprocentně interpretována.</p>
       <p>Je mi líto, že to vydrželo tak málo, ale přechod na novou RSO znamená urychlení požadavku o přístup, tak snad již brzy na tom novém projektu!</p>
-    </v-card-text>
-    <!-- <v-card-text>
+    </v-card-text> -->
+    <v-card-text>
       <p>{{ $t('home.p1') }}</p>
       <p>{{ $t('home.p2') }}</p>
       <p>{{ $t('home.p3') }}</p>
@@ -23,7 +23,7 @@
       <LangSwitch />
       <v-spacer></v-spacer>
       <v-btn color="blue-grey darken-4" dark @click="login">{{ $t('home.button') }}</v-btn>
-    </v-card-actions> -->
+    </v-card-actions>
   </div>
 </template>
 
