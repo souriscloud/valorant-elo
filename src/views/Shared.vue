@@ -13,7 +13,7 @@
           </v-tooltip>
         </v-col>
         <v-col :cols="loaded ? 11 : 12">
-          <v-toolbar-title>{{ userInfo.displayName }}</v-toolbar-title>
+          <v-toolbar-title>{{ title }}</v-toolbar-title>
         </v-col>
         <!-- <template v-if="loaded">
           <v-col cols="2">
@@ -73,6 +73,18 @@ export default {
     MatchCard
   },
 
+  computed: {
+    title () {
+      if (!this.updatedAt) {
+        return this.userInfo.displayName
+      }
+
+      const dt = new Date(this.updatedAt)
+      const intldt = new Intl.DateTimeFormat('cs', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' }).format(dt)
+      return `${this.userInfo.displayName} - ${intldt}`
+    }
+  },
+
   data () {
     return {
       userId: '',
@@ -82,7 +94,8 @@ export default {
       matches: [],
       noRanked: null,
       lastMatch: null,
-      loaded: false
+      loaded: false,
+      updatedAt: null
     }
   },
 
@@ -102,6 +115,7 @@ export default {
       this.matches = response.data.matches
       this.noRanked = response.data.noRanked
       this.lastMatch = response.data.lastMatch
+      this.updatedAt = response.data.updatedAt
     }
     this.loaded = true
   }
