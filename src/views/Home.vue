@@ -28,9 +28,17 @@
 </template>
 
 <script>
+import RiotLogin from '@/components/RiotLogin.vue'
+import LangSwitch from '@/components/LangSwitch.vue'
 
 export default {
   name: 'Home',
+
+  components: {
+    RiotLogin,
+    LangSwitch
+  },
+
   computed: {
     lastCommitTime () {
       const { lastCommit } = this.$store.state
