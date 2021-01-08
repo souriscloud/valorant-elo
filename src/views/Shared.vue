@@ -52,31 +52,31 @@
       <v-spacer></v-spacer>
       <v-dialog v-model="deletionDialog" width="500">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn dark v-bind="attrs" v-on="on" x-large>REQUEST DELETION</v-btn>
+          <v-btn dark v-bind="attrs" v-on="on" x-large>{{ $t('elo.deletion.trigger') }}</v-btn>
         </template>
 
         <v-card>
-          <v-card-title>Competitive progress card deletion</v-card-title>
+          <v-card-title>{{ $t('elo.deletion.title') }}</v-card-title>
           <template v-if="!deletionProgress">
-            <v-card-text>When you delete your competitive progress card, this static link will be destroyed forever. You can make then new share and generate new link!</v-card-text>
-            <v-card-text>Credentials are again send to Riot to authorize hash of your profile ID, that you have stored/shared this competitive progress card, it has nothing to do with Valorant itself.</v-card-text>
+            <v-card-text>{{ $t('elo.deletion.p1') }}</v-card-text>
+            <v-card-text>{{ $t('elo.deletion.p2') }}</v-card-text>
             <v-card-text>
-              <v-text-field v-model="deletionCreds.username" label="username" />
-              <v-text-field v-model="deletionCreds.password" label="password" />
+              <v-text-field v-model="deletionCreds.username" dark prepend-icon="mdi-account" :label="$t('login.username')" />
+              <v-text-field v-model="deletionCreds.password" dark prepend-icon="mdi-lock" :label="$t('login.password')" />
             </v-card-text>
             <v-card-actions>
               <v-btn
                 dark
                 @click="deletionDialog = false"
               >
-                Don't delete
+                {{ $t('elo.deletion.no') }}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn
                 dark
                 @click="deletion"
               >
-                Delete
+                {{ $t('elo.deletion.yes') }}
               </v-btn>
             </v-card-actions>
           </template>

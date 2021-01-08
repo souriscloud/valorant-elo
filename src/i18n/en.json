@@ -17,7 +17,23 @@
   "elo": {
     "rank_actual": "Actual rank",
     "rank_next": "Next rank",
-    "no_ranked": "No competitive games in last 5 matches! Play competitive game to reveal your MMR." 
+    "no_ranked": "No competitive games in last 5 matches! Play competitive game to reveal your MMR.",
+    "share": {
+      "title": "Share (or update existing) competitive progress card.",
+      "p1": "Since we don't store your passwords, you have to update them with SHARE button yourself anytime you want it update!",
+      "p2": "When you share your competitive progress card, static link will be generated and will be totally public for all that have the link, there is no account sensitive data, just numbers about your progress, and if you want, you can request deletion, when you open your static link and click the button \"REQUEST DELETION\", you will authorize by your riot account and static link will be deleted forever!",
+      "yes": "Share",
+      "no": "Don't share",
+      "trigger": "SHARE"
+    },
+    "deletion": {
+      "title": "Competitive progress card deletion",
+      "p1": "When you delete your competitive progress card, this static link will be destroyed forever. You can make then new share and generate new link!",
+      "p2": "Credentials are again send to Riot to authorize hash of your profile ID, that you have stored/shared this competitive progress card, it has nothing to do with Valorant itself.",
+      "yes": "Delete",
+      "no": "Don't delete",
+      "trigger": "REQUEST DELETION"
+    }
   },
   "go_home": "Home",
   "screenshot": "Save as PNG",

@@ -7,28 +7,27 @@
       <v-spacer></v-spacer>
       <v-dialog v-model="shareDialog" width="700">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn dark v-bind="attrs" v-on="on" x-large>SHARE</v-btn>
+          <v-btn dark v-bind="attrs" v-on="on" x-large>{{ $t('elo.share.trigger') }}</v-btn>
         </template>
 
         <v-card>
-          <v-card-title>Share (or update existing) competitive progress card.</v-card-title>
+          <v-card-title>{{ $t('elo.share.title') }}</v-card-title>
           <template v-if="!isSharing">
-            <v-card-text>Since we don't store your passwords, you have to update them with SHARE button yourself anytime you want it update!</v-card-text>
-            <v-card-text>When you share your competitive progress card, static link will be generated and will be totally public for all that have the link, there is no account sensitive data, just numbers about your progress, and if you want, you can request deletion, when you open your static link and click the button "REQUEST DELETION", you will authorize by your riot account and static link will be deleted forever!</v-card-text>
-            <v-card-text>Czech translation will be available in one or two days!</v-card-text>
+            <v-card-text>{{ $t('elo.share.p1') }}</v-card-text>
+            <v-card-text>{{ $t('elo.share.p2') }}</v-card-text>
             <v-card-actions>
               <v-btn
                 dark
                 @click="shareDialog = false"
               >
-                Don't share
+                {{ $t('elo.share.no') }}
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn
                 dark
                 @click="share"
               >
-                Share
+                {{ $t('elo.share.yes') }}
               </v-btn>
             </v-card-actions>
           </template>

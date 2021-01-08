@@ -17,7 +17,23 @@
   "elo": {
     "rank_actual": "Aktuální rank",
     "rank_next": "Další rank",
-    "no_ranked": "V posledních 5ti zápasech nemáš ani jeden kompetitivní! Musíš odehrát alespoň jeden kompetitivní zápas abys zde viděl své MMR." 
+    "no_ranked": "V posledních 5ti zápasech nemáš ani jeden kompetitivní! Musíš odehrát alespoň jeden kompetitivní zápas abys zde viděl své MMR.",
+    "share": {
+      "title": "Sdílet (nebo aktualizovat existující) kartu.",
+      "p1": "Vzhledem k tomu, že heslo pokaždé přímo odesílame rovnou Riotu, musíte kartu aktualizovat sami kdykoliv chcete aby se aktualizovala, přihlášením k aplikaci a kliknutím na SDÍLET",
+      "p2": "Pokud svojí kartu sdílíte, vytvoří se statický odkaz, na kterém bude dostupná pro každého kdo odkaz má, nic z toho neobsahuje žádná cilivá data týkající se přihlášení, pouze váš herní postup. Kdykoliv můžete svoji kartu smazat, když otevřete její odkaz a kliknete na tlačítko \"ŽÁDOST O SMAZÁNÍ\" a zadáte své přihlašovací údaje (pro ověření, že tato karta patří stejnému hráči jako ji vytvořil).",
+      "yes": "Sdílet",
+      "no": "Rozmyslel jsem si to!",
+      "trigger": "SDÍLET"
+    },
+    "deletion": {
+      "title": "Smazání karty",
+      "p1": "Když svoji kartu smažete, odkaz bude smazán navždy. Můžete ale kdykoliv vytvořit nový opětovným sdílením!",
+      "p2": "Přihlašovací údaje jsou znovu vyžádováno k ověření vašeho ID u Riotu, jestli jste majitelem karty kterou chcete smazat, nemá to vůbec co dělat s hrou.",
+      "yes": "Smazat",
+      "no": "Rozmyslel jsem si to!",
+      "trigger": "ŽÁDOST O SMAZÁNÍ"
+    }
   },
   "go_home": "Zpět na přihlášení",
   "screenshot": "Uložit jako PNG",

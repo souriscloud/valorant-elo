@@ -2,8 +2,8 @@
   <div>
     <template v-if="isLoading === null">
       <v-form>
-        <v-text-field v-model="username" @input="usernameInput" :label="$t('login.username')" name="username" prepend-icon="mdi-account" type="text" />
-        <v-text-field v-model="password" @input="passwordInput" :label="$t('login.password')" name="password" prepend-icon="mdi-lock" type="password" />
+        <v-text-field v-model="username" @input="usernameInput" :label="$t('login.username')" name="username" prepend-icon="mdi-account" dark type="text" />
+        <v-text-field v-model="password" @input="passwordInput" :label="$t('login.password')" name="password" prepend-icon="mdi-lock" dark type="password" />
       </v-form>
     </template>
     <template v-if="isLoading !== null && !loaded">
